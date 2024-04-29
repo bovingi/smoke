@@ -1,0 +1,17 @@
+---
+title: "processing"
+author: "Indra Boving"
+date: "2024-04-29"
+output: html_document
+---
+
+Using code from this: 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# install.packages("remotes")
+remotes::install_github("muir-lab/licorer")
+install.packages("licorer")
+
+data <- read_li6800_excel(here::here("raw-data","2024-04-25-1052_logdata_smoke_test_r1"), decimal = ".")
+```
+
