@@ -5,13 +5,143 @@ date: "2024-04-29"
 output: html_document
 ---
 
+```{r}
+library(tidyverse)
+install.packages("readxl")
+library(readxl)
+
+install.packages(c("units", "stringi", "jsonify", "xml2", "tidyxl", "tibble", "vctrs", "devtools"))
+devtools::install_local("gasanalyzer-master.zip")
+
+```
+
 Using code from this: 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-# install.packages("remotes")
-remotes::install_github("muir-lab/licorer")
-install.packages("licorer")
-
-data <- read_li6800_excel(here::here("raw-data","2024-04-25-1052_logdata_smoke_test_r1"), decimal = ".")
+# knitr::opts_chunk$set(echo = TRUE)
+# # install.packages("remotes")
+# remotes::install_github("muir-lab/licorer")
+# install.packages("licorer")
+# 
+# data <- read_li6800_excel(here::here("raw-data","2024-04-25-1052_logdata_smoke_test_r1"), decimal = ".")
 ```
+
+#LICOR DATA: 
+
+- First make sure all cells in the excel sheet are values, not equations (select all, copy, then paste special as values)
+```{r}
+# Load required libraries
+library(readxl)
+library(dplyr)
+library(lubridate)
+
+# Define the folder path containing Excel files
+folder_path <- here::here("raw-data","licor tests", "2024-03-19 segi smoke", "licor_forR")
+
+
+# List all Excel files in the folder
+files <- list.files(path = folder_path, pattern = "*.xlsx", full.names = TRUE)
+
+# Initialize an empty list to store individual dataframes
+df_list <- list()
+
+# Loop through each file in the folder
+for (file in files) {
+  
+  # Read in the Excel sheet, skipping formulas and reading only values
+  data <- read_excel(file, sheet = "Measurements", col_types = "text")
+  
+  # Skip the first 13 rows manually
+  data <- data[-c(1:12), ]
+  
+  # Combine rows 1, 2, and 3 (corresponding to rows 14, 15, and 16 in original) to create column names
+  combined_row <- paste(data[1, ], data[2, ], sep = "_")
+  
+  # Remove the rows 1, 2, and 3 after combining them (they are now column headers)
+  data <- data[-c(1, 2), ]
+  
+  # Assign combined row as the new column names
+  colnames(data) <- combined_row
+  
+  # Remove instances of _NA from column names
+  colnames(data) <- gsub("_NA", "", colnames(data))
+  
+  # Select only the first 16 columns
+  data <- data %>% select(1:17)
+  
+  # Add the processed dataframe to the list
+  df_list[[file]] <- data
+}
+library(hms)
+
+# Combine all dataframes into one large dataframe
+final_data <- bind_rows(df_list) %>% 
+  mutate(date_time= as.POSIXct(date, format = "%Y%m%d %H:%M:%S"),
+         date_time = lubridate::ymd_hms(date), 
+         date = date(date_time), 
+         time = as_hms(date_time)) %>% 
+  janitor::clean_names() %>%
+  mutate(across(
+    .cols = where(is.character) & !all_of(c("plant_id", "na_cat")),  # Exclude 'plant_id' and 'NA_cat'
+    .fns = as.numeric), 
+    type = na_cat) %>% 
+  drop_na(date) %>% 
+  filter(!(date %in% c("2024-04-22"))) %>% 
+  filter(a_mmol_m_2_s_1 < 50 ) %>% #remove one outlier 
+  filter(a_mmol_m_2_s_1 > 0) %>% #remove one outlier 
+  mutate(spot_aci = case_when(
+    type %in% c("pre", "post", "post 4 days", "post 9 days") ~ "spot measurements", 
+    TRUE ~ "ACi curves"
+  )) %>% 
+  group_by(date, type, plant_id, spot_aci) %>% 
+  mutate(A = mean(a_mmol_m_2_s_1, na.rm = T), 
+         gsw = mean(gsw_mol_m_2_s_1, na.rm = T)) %>% 
+  ungroup()
+```
+
+```{r}
+final_data %>% 
+  select(date, A, spot_aci, type, plant_id) %>% 
+  distinct() %>% 
+  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+                     "2024-04-25")) %>% 
+  filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = A, x = type, color = type)) +
+  geom_jitter() +
+  geom_boxplot(alpha= 0, color = "black") +
+  facet_wrap(~date)
+```
+
+
+```{r}
+final_data %>% 
+  select(date, gsw, spot_aci, type, plant_id) %>% 
+  distinct() %>% 
+  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+                     "2024-04-25")) %>% 
+  filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = gsw, x = type, color = type)) +
+  geom_jitter() +
+  geom_boxplot(alpha= 0, color = "black") +
+  facet_wrap(~date)
+```
+
+
+```{r}
+final_data %>% 
+  select(date, gsw, spot_aci, type, plant_id) %>% 
+  distinct() %>% 
+  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+                     "2024-04-25",
+                     "2024-05-01",
+                     "2024-05-02",
+                     "2024-05-03",
+                     "2024-05-08",
+                     "2024-05-10")) %>% 
+  #filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = gsw, x = type, color = type)) +
+  geom_jitter() +
+  geom_boxplot(alpha= 0, color = "black") +
+  facet_wrap(~date)
+```
+
 

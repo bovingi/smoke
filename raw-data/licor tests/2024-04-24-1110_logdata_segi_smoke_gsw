@@ -1,0 +1,201 @@
+[Header]
+File opened	2024-04-24 11:10:58
+Console s/n	68C-022579
+Console ver	Bluestem v.2.1.09
+Scripts ver	2022.06  2.1.09, Dec 2022
+Head s/n	68H-422569
+Head ver	1.4.22
+Head cal	{"oxygen": "21", "co2azero": "0.953182", "co2aspan1": "1.0007", "co2aspan2": "-0.0241478", "co2aspan2a": "0.320658", "co2aspan2b": "0.318399", "co2aspanconc1": "2491", "co2aspanconc2": "303.6", "co2bzero": "0.942748", "co2bspan1": "1.00024", "co2bspan2": "-0.0240419", "co2bspan2a": "0.321302", "co2bspan2b": "0.318896", "co2bspanconc1": "2491", "co2bspanconc2": "303.6", "h2oazero": "1.04539", "h2oaspan1": "1.00536", "h2oaspan2": "0", "h2oaspan2a": "0.0681292", "h2oaspan2b": "0.0684947", "h2oaspanconc1": "12.16", "h2oaspanconc2": "0", "h2obzero": "1.05523", "h2obspan1": "1.00305", "h2obspan2": "0", "h2obspan2a": "0.0685762", "h2obspan2b": "0.0687854", "h2obspanconc1": "12.16", "h2obspanconc2": "0", "tazero": "0.154137", "tbzero": "0.259335", "flowmeterzero": "2.48881", "flowazero": "0.29412", "flowbzero": "0.30539", "chamberpressurezero": "2.55489", "ssa_ref": "37836.8", "ssb_ref": "35909.7"}
+CO2 rangematch	Tue Apr 23 10:36
+H2O rangematch	Tue Apr 23 10:46
+Chamber type	6800-01A
+Chamber s/n	MPF-842225
+Chamber rev	0
+Chamber cal	0
+Fluorometer	MPF-842225
+Flr. Version	1.4.7
+11:10:58	Stability Definition:	ΔCO2 (Meas2): Slp<0.1 Per=20	ΔH2O (Meas2): Slp<0.1 Per=20
+SysConst:AvgTime	4
+SysConst:Oxygen	21.0
+ChambConst:Chamber	6800-01A
+ChambConst:Aperture	6 cm²
+ChambConst:blc_a	0.578
+ChambConst:blc_b	0.5229739
+ChambConst:blc_c	0.003740252
+ChambConst:blc_d	-0.06197961
+ChambConst:blc_e	-0.005608586
+ChambConst:blc_minS	1
+ChambConst:blc_maxS	6
+ChambConst:blc_Po	96.9
+LTConst:deltaTw	0
+LTConst:fT1	1
+LTConst:fT2	0
+LTConst:fTeb	0
+LQConst:Leaf	standard
+LQConst:Ambient	Fluorescent
+LQConst:abs_ambient	0.76
+LQConst:abs_redLED	0.84
+LQConst:abs_greenLED	0.7
+LQConst:abs_blueLED	0.87
+LQConst:abs_whiteLED	0.75
+LQConst:abs_redFlr	0.84
+LQConst:abs_blueFlr	0.87
+LQConst:k_ambient	0.17250000000000001
+LQConst:k_redLED	0.1512
+LQConst:k_greenLED	0.161
+LQConst:k_blueLED	0.2262
+LQConst:k_whiteLED	0.1575
+LQConst:k_redFlr	0.1596
+LQConst:k_blueFlr	0.2175
+QConst:fQ_Amb_in	0.0
+QConst:fQ_Amb_out	0.0
+QConst:fQ_HeadLS	0.0
+QConst:fQ_ConsoleLS	0.0
+QConst:fQ_Flr	1.0
+LeakConst:fan_a	-6276.0
+LeakConst:fan_b	6.6
+LeakConst:fan_c	1.709e-05
+LeakConst:fan_d	3.11
+LeakConst:Fs_meas	3.47651 199.924 357.624 572.179 851.2 1047.14 1245.91 1393.14
+LeakConst:Fs_true	-0.828902 224.633 389.027 582.932 808.971 1001.28 1201.77 1400.46
+LeakConst:leak_wt	0
+[Data]
+SysObs	SysObs	SysObs	SysObs	SysObs	SysObs	UserDefCon	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Leak	Leak	Leak	Leak	Leak	LeafQ	LeafQ	LeafQ	LeafQ	Const	Const	Const	Const	Const	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	
+obs	time	elapsed	date	hhmmss	averaging	plant.id	TIME	E	Emm	A	Ca	Ci	Pci	Pca	gsw	gbw	gtw	gtc	Rabs	TleafEB	TleafCnd	SVPleaf	RHcham	VPcham	SVPcham	VPDleaf	LatHFlux	SenHFlux	NetTherm	EBSum	Asty	Esty	Adyn	Crd	Csd	dCsd/dt	αVc	Edyn	Hr	Hs	dHs/dt	αVh	Leak	LeakPct	CorrFact	CorrFactPct	Fan	Qin	Qabs	alpha	convert	S	K	Geometry	Custom	UseDynamic	TIME	CO2_s	CO2_r	H2O_s	H2O_r	CO2_a	H2O_a	Flow	Pa	ΔPcham	Tair	Tleaf	Tleaf2	Offset	Offset2	Fan_speed	Qamb_in	Qamb_out	ΔCO2	CO2_s_d	CO2_r_d	ΔH2O	CO2_b	H2O_b	e_s	e_r	Td_s	Td_r	Q	f_red	f_blue	f_farred	F	Q_modavg	F_dc	Pc	Tled	TDigital	TPreamp	TPwrSpy	TDrive	Q_red	Q_blue	Q_farred	TSPF	state	time	hhmmss	co2_t	h2o_t	count	co2_adj	h2o_adj	co2_match	h2o_match	co2_at	h2o_at	co2_cv	h2o_cv	ΔCO2:MN	ΔCO2:SLP	ΔCO2:SD	ΔCO2:OK	ΔH2O:MN	ΔH2O:SLP	ΔH2O:SD	ΔH2O:OK	Stable	Total	State	Vflow	VPchamber	abs_c_a	abs_c_b	abs_h_a	abs_h_b	Wc_s	Wc_r	Wco_s	Wco_r	Ww_s	Ww_r	Wwo_s	Wwo_r	Flow_s_v	Flow_r_v	Tleaf_mv	Tleaf2_mv	Tleaf_j	Tleaf2_j	Console_RH	Console_T	Console_H2O	Fan_%	Flow_%	Pump	Tchp_pwm	Txchg_pwm	diag_20v	diag_5_4v	diag_12v	diag_5va	diag_3_3vf	AccCO2_soda	AccH2O_des	AccH2O_hum	CO2_hrs	ADC_CH1	ADC_CH2	ADC_CH3	ADC_CH4	ADC_CH5	ADC_CH6	ADC_CH7	ADC_CH8	DAC_1	DAC_2	DAC_3	DAC_4	GPIO	GPIO_dir	excit_5v	power_12v	power_5v	ch1_pullup	AuxPower	MatchValveR	MatchValveS	MatchCO2	MatchH2O	cf_co2_a	cf_co2_b	cf_co2_c	cf_co2_d	cf_h2o_a	cf_h2o_b	cf_h2o_c	cf_h2o_d	co2_fit_low	co2_fit_high	h2o_fit_low	h2o_fit_high	co2_elapsed	h2o_elapsed	CO2_f	CO2_f_s	Pump_f	Pump_f_s	Pump_p	Pump_p_s	Tboard	V_system	DIAG	Flow_s	Flow_r	Txchg	Tirga	Tchopper	Ts	Tr	CO2_%	Desiccant_%	Humidifier_%	Txchg_sp	CO2_r_sp	H2O_r_sp	SS_s	SS_r	
+	s	s			s		s	mol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	Pa	Pa	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	W m⁻²	°C	°C	kPa	%	kPa	kPa	kPa	W m⁻²	W m⁻²	W m⁻²	W m⁻²	µmol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹ s⁻¹	cm³	mmol m⁻² s⁻¹	mmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹ s⁻¹	cm³	µmol s⁻¹	%		%	µmol s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹		J/µmol	cm²			mol m⁻² s⁻¹		s	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol s⁻¹	kPa	kPa	°C	°C	°C	°C	°C	rpm	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	kPa	kPa	°C	°C	µmol m⁻² s⁻¹					µmol m⁻² s⁻¹			°C	°C	°C	°C	°C	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	s		secs		s	s		µmol/mol	mmol/mol	µmol/mol	mmol/mol	µmol/mol	mmol/mol	%	%	µmol mol⁻¹	µmol mol⁻¹ min⁻¹	µmol mol⁻¹		mmol mol⁻¹	mmol mol⁻¹ min⁻¹	mmol mol⁻¹					V	V													V	V	mV	mV	°C	°C	%	°C	mmol mol⁻¹	%	%		V	V	V	V	V	V	V	mg	mg	mg	hrs	V	V	V	V	V	V	V	V	V	V	V	V							V	%	%	µmol/mol	mmol/mol	mmol/mol				mmol/mol				µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	min	min	V	V	V	V	V	V	°C	V		µmol s⁻¹	µmol s⁻¹	°C	°C	°C	°C	°C	%	%	%	°C	µmol mol⁻¹	mmol mol⁻¹	%	%	
+1	1713982645.1	0	20240424 11:17:25	11:17:25	5	9_nosmoke	1713982637.0999994	0.00038658168708691573	0.3865816870869157	1.873199247009652	417.56919148170243	277.2857555226328	28.264357311089313	42.563761733437374	0.022980004220230776	3.0	0.022882658815972415	0.014310373367545641	289.5686183225807	26.607304871173504	25.596674193548388	3.294562400803108	50.658197934310536	1.6139726791833713	3.186004921209872	1.6805897216197367	-17.048252400532984	-91.11006263225794	-6.444392872000168	174.9659104177896	2.2720093911165784	0.4442799252107009	1.873199247009652	426.5804726087848	424.67574545454545	0.0004773900225096232	67.14865772698205	0.3865816870869157	15.323956065993356	15.762499393939393	-0.010795452423402768	78.53940262356201	0	0.0	1	0	54379.0	1799.9735483870968	1513.1657806451612	0.8406600096990673	0.16087381871919984	6.0	0.5	1: Needles	2.0	True	1713982637.0999994	417.5691935483872	420.02677419354836	15.833780645161292	15.396525806451614	420.2881935483872	15.87713225806452	599.9869032258064	101.83222580645159	0.10001105806451613	25.033348387096776	25.596674193548388	999.9000000000003	0.0	0.0	10000.685483870968	0.0	424.9011935483871	-2.084563548387097	424.6664193548386	426.594870967742	0.43725003225806447	420.02677419354836	15.396525806451614	1.6123906451612902	1.5678629032258062	14.0776935483871	13.646441935483871	1799.9735483870968	0.9779980967741935	0.02200188709677419	0.0	2.2340935483870967	0.0	3038.1551612903227	17089.41290322581	37.77390322580645	39.56635483870967	38.336483870967726	36.19529032258064	37.189354838709676	1760.3735483870971	39.59999999999999	0.0	1713982733.2	0.0	1713982662.1	11:17:42	1713982662.1	1713900481.1	1	-0.362	0.001	-2.719	-0.043	420.0	16.0	0.37	0.1	-2.0827424390243903	-0.1796765853658556	0.03711760609004893	0	0.4354421219512195	0.060309386759582265	0.015606718426956342	1	1	2	1/2	3.22993	2.70447	0.107036	0.107329	0.0870408	0.0855007	29333.2	28677.5	31441.6	30435.6	38467	36807.8	44083	42507.3	2.18685	1.99433	0.136729	0	23.278	999.9	65.4	24.4	19.7021	61.0356	23.2452	1	-0.298244	-1.27242	20.1957	5.22448	11.995	4.9665	3.29633	9999.0	9999.0	9999.0	12.8	4.97107	1.86768	1.85883	1.86494	1.86304	1.86434	1.85974	1.86386	0.0	0.0	0.0	0.0	10111111	oioooooo	on	on	on	on	0.0	100	100	-2.719	-0.0436	-0.4990983001835436	-0.004200780211792431	-6.086107273994438e-07	3.538391214060535e-10	-0.06860670856239538	0.006682484536868237	-0.0007200357986506558	2.5150420026140494e-05	15.0	1944.0	3.0	20.0	1369.4	1369.4	1.12549	2.41699	1.44897	2.31201	1.55151	2.29858	29.7937	12.6961	18	602.873	483.011	24.9962	23.2024	30.0001	23.1739	23.0959	22.5159	33.358	90.4535	25	420	15.2481	99.803	101.564	
+2	1713983024.1	379.0	20240424 11:23:44	11:23:44	5	9_nosmoke	1713983016.0999994	-2.9018265801971408e-05	-0.029018265801971407	0.09541505864034663	420.03941924852836	503.92350348354915	51.37328711361082	42.82159005269229	-0.0015638498712372939	3.0	-0.001564302906716817	-0.0009776486033879319	289.5760178709677	27.9114094351451	26.92654838709678	3.563748257616213	50.324813018150415	1.7216323912291849	3.4210408106399752	1.8421158663870283	1.279705521866939	-112.18843726451645	-8.03666520207643	170.63062092624176	-0.035972941943703075	-0.04452397096305234	0.09541505864034663	427.2691865653746	427.17130909090884	0.00017781367636472833	67.1549697713683	-0.029018265801971407	16.92293970981267	16.894121818181812	5.386088246678217e-05	78.53454674621572	0	0.0	1	0	53812.0	1800.0196774193546	1513.2045483870966	0.8406600035375957	0.16087380682755978	6.0	0.5	1: Needles	2.0	True	1713983016.0999994	420.0394193548388	419.9847419354839	16.887590322580646	16.931364516129033	422.6674193548388	16.92741612903226	599.9708709677419	101.84670967741937	0.09988888064516128	26.232896774193552	26.92654838709678	999.9000000000003	0.0	0.0	10007.214193548387	0.0	1754.813548387097	-0.03635233763548387	427.16209677419357	427.2182258064515	-0.04376830032258065	419.9847419354839	16.931364516129033	1.719945483870968	1.7244019354838709	15.077629032258065	15.11785806451613	1800.0196774193546	0.9779980322580647	0.02200182903225807	0.0	2.23701935483871	0.0	1242.7480645161288	17089.85483870968	37.90903225806451	39.18112903225806	38.467451612903226	37.047999999999995	37.302129032258065	1760.419032258064	39.60064516129031	0.0	1713983111.8	0.0	1713983040.1	11:24:00	1713983040.1	1713900481.1	2	0.091	0.001	-2.628	-0.043	420.0	16.0	0.49	0.1	-0.0422111466675	-0.057599901490806696	0.053592699570319056	1	-0.0448409575	0.05376605741088181	0.010085317161395756	1	2	2	2/2	3.23038	2.70433	0.107441	0.107271	0.0914975	0.091904	29305	28659.6	31427.4	30416.8	38256.9	36526.5	44059.4	42482.1	2.19053	1.9935	0.0471026	0	26.1421	999.9	64.9	24.5	19.6666	61.4756	22.8606	1	-0.277017	-0.814148	20.1957	5.22538	11.9926	4.9659	3.29633	9999.0	9999.0	9999.0	12.9	4.97102	1.86766	1.85883	1.86493	1.86296	1.86432	1.85974	1.86386	0.0	0.0	0.0	0.0	10111111	oioooooo	on	on	on	on	0.0	100.0	100.0	-2.628	-0.0398	-0.8614920288357528	-0.004200780211792431	-6.086107273994438e-07	3.538391214060535e-10	-0.06860670856239538	0.006682484536868237	-0.0007200357986506558	2.5150420026140494e-05	15.0	1944.0	3.0	20.0	6.0	1375.7	1.12671	2.42554	1.44775	2.31079	1.55151	2.44019	29.6017	12.3546	18	608.615	485.326	25.001	23.5217	30.001	23.4597	23.4005	22.5578	23.9396	90.4599	25	420	16.7694	99.7531	101.503	
+[Header]
+File opened	2024-04-24 11:35:16
+Console s/n	68C-022579
+Console ver	Bluestem v.2.1.09
+Scripts ver	2022.06  2.1.09, Dec 2022
+Head s/n	68H-422569
+Head ver	1.4.22
+Head cal	{"oxygen": "21", "co2azero": "0.953182", "co2aspan1": "1.0007", "co2aspan2": "-0.0241478", "co2aspan2a": "0.320658", "co2aspan2b": "0.318399", "co2aspanconc1": "2491", "co2aspanconc2": "303.6", "co2bzero": "0.942748", "co2bspan1": "1.00024", "co2bspan2": "-0.0240419", "co2bspan2a": "0.321302", "co2bspan2b": "0.318896", "co2bspanconc1": "2491", "co2bspanconc2": "303.6", "h2oazero": "1.04539", "h2oaspan1": "1.00536", "h2oaspan2": "0", "h2oaspan2a": "0.0681292", "h2oaspan2b": "0.0684947", "h2oaspanconc1": "12.16", "h2oaspanconc2": "0", "h2obzero": "1.05523", "h2obspan1": "1.00305", "h2obspan2": "0", "h2obspan2a": "0.0685762", "h2obspan2b": "0.0687854", "h2obspanconc1": "12.16", "h2obspanconc2": "0", "tazero": "0.154137", "tbzero": "0.259335", "flowmeterzero": "2.48881", "flowazero": "0.29412", "flowbzero": "0.30539", "chamberpressurezero": "2.55489", "ssa_ref": "37836.8", "ssb_ref": "35909.7"}
+CO2 rangematch	Tue Apr 23 10:36
+H2O rangematch	Tue Apr 23 10:46
+Chamber type	6800-01A
+Chamber s/n	MPF-842225
+Chamber rev	0
+Chamber cal	0
+Fluorometer	MPF-842225
+Flr. Version	1.4.7
+11:35:16	Stability Definition:	ΔCO2 (Meas2): Slp<0.1 Per=20	ΔH2O (Meas2): Slp<0.1 Per=20
+SysConst:AvgTime	4
+SysConst:Oxygen	21.0
+ChambConst:Chamber	6800-01A
+ChambConst:Aperture	6 cm²
+ChambConst:blc_a	0.578
+ChambConst:blc_b	0.5229739
+ChambConst:blc_c	0.003740252
+ChambConst:blc_d	-0.06197961
+ChambConst:blc_e	-0.005608586
+ChambConst:blc_minS	1
+ChambConst:blc_maxS	6
+ChambConst:blc_Po	96.9
+LTConst:deltaTw	0
+LTConst:fT1	1
+LTConst:fT2	0
+LTConst:fTeb	0
+LQConst:Leaf	standard
+LQConst:Ambient	Fluorescent
+LQConst:abs_ambient	0.76
+LQConst:abs_redLED	0.84
+LQConst:abs_greenLED	0.7
+LQConst:abs_blueLED	0.87
+LQConst:abs_whiteLED	0.75
+LQConst:abs_redFlr	0.84
+LQConst:abs_blueFlr	0.87
+LQConst:k_ambient	0.17250000000000001
+LQConst:k_redLED	0.1512
+LQConst:k_greenLED	0.161
+LQConst:k_blueLED	0.2262
+LQConst:k_whiteLED	0.1575
+LQConst:k_redFlr	0.1596
+LQConst:k_blueFlr	0.2175
+QConst:fQ_Amb_in	0.0
+QConst:fQ_Amb_out	0.0
+QConst:fQ_HeadLS	0.0
+QConst:fQ_ConsoleLS	0.0
+QConst:fQ_Flr	1.0
+LeakConst:fan_a	-6276.0
+LeakConst:fan_b	6.6
+LeakConst:fan_c	1.709e-05
+LeakConst:fan_d	3.11
+LeakConst:Fs_meas	3.47651 199.924 357.624 572.179 851.2 1047.14 1245.91 1393.14
+LeakConst:Fs_true	-0.828902 224.633 389.027 582.932 808.971 1001.28 1201.77 1400.46
+LeakConst:leak_wt	0
+[Data]
+SysObs	SysObs	SysObs	SysObs	SysObs	SysObs	UserDefCon	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Leak	Leak	Leak	Leak	Leak	LeafQ	LeafQ	LeafQ	LeafQ	Const	Const	Const	Const	Const	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	
+obs	time	elapsed	date	hhmmss	averaging	plant.id	TIME	E	Emm	A	Ca	Ci	Pci	Pca	gsw	gbw	gtw	gtc	Rabs	TleafEB	TleafCnd	SVPleaf	RHcham	VPcham	SVPcham	VPDleaf	LatHFlux	SenHFlux	NetTherm	EBSum	Asty	Esty	Adyn	Crd	Csd	dCsd/dt	αVc	Edyn	Hr	Hs	dHs/dt	αVh	Leak	LeakPct	CorrFact	CorrFactPct	Fan	Qin	Qabs	alpha	convert	S	K	Geometry	Custom	UseDynamic	TIME	CO2_s	CO2_r	H2O_s	H2O_r	CO2_a	H2O_a	Flow	Pa	ΔPcham	Tair	Tleaf	Tleaf2	Offset	Offset2	Fan_speed	Qamb_in	Qamb_out	ΔCO2	CO2_s_d	CO2_r_d	ΔH2O	CO2_b	H2O_b	e_s	e_r	Td_s	Td_r	Q	f_red	f_blue	f_farred	F	Q_modavg	F_dc	Pc	Tled	TDigital	TPreamp	TPwrSpy	TDrive	Q_red	Q_blue	Q_farred	TSPF	state	time	hhmmss	co2_t	h2o_t	count	co2_adj	h2o_adj	co2_match	h2o_match	co2_at	h2o_at	co2_cv	h2o_cv	ΔCO2:MN	ΔCO2:SLP	ΔCO2:SD	ΔCO2:OK	ΔH2O:MN	ΔH2O:SLP	ΔH2O:SD	ΔH2O:OK	Stable	Total	State	Vflow	VPchamber	abs_c_a	abs_c_b	abs_h_a	abs_h_b	Wc_s	Wc_r	Wco_s	Wco_r	Ww_s	Ww_r	Wwo_s	Wwo_r	Flow_s_v	Flow_r_v	Tleaf_mv	Tleaf2_mv	Tleaf_j	Tleaf2_j	Console_RH	Console_T	Console_H2O	Fan_%	Flow_%	Pump	Tchp_pwm	Txchg_pwm	diag_20v	diag_5_4v	diag_12v	diag_5va	diag_3_3vf	AccCO2_soda	AccH2O_des	AccH2O_hum	CO2_hrs	ADC_CH1	ADC_CH2	ADC_CH3	ADC_CH4	ADC_CH5	ADC_CH6	ADC_CH7	ADC_CH8	DAC_1	DAC_2	DAC_3	DAC_4	GPIO	GPIO_dir	excit_5v	power_12v	power_5v	ch1_pullup	AuxPower	MatchValveR	MatchValveS	MatchCO2	MatchH2O	cf_co2_a	cf_co2_b	cf_co2_c	cf_co2_d	cf_h2o_a	cf_h2o_b	cf_h2o_c	cf_h2o_d	co2_fit_low	co2_fit_high	h2o_fit_low	h2o_fit_high	co2_elapsed	h2o_elapsed	CO2_f	CO2_f_s	Pump_f	Pump_f_s	Pump_p	Pump_p_s	Tboard	V_system	DIAG	Flow_s	Flow_r	Txchg	Tirga	Tchopper	Ts	Tr	CO2_%	Desiccant_%	Humidifier_%	Txchg_sp	CO2_r_sp	H2O_r_sp	SS_s	SS_r	
+	s	s			s		s	mol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	Pa	Pa	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	W m⁻²	°C	°C	kPa	%	kPa	kPa	kPa	W m⁻²	W m⁻²	W m⁻²	W m⁻²	µmol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹ s⁻¹	cm³	mmol m⁻² s⁻¹	mmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹ s⁻¹	cm³	µmol s⁻¹	%		%	µmol s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹		J/µmol	cm²			mol m⁻² s⁻¹		s	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol s⁻¹	kPa	kPa	°C	°C	°C	°C	°C	rpm	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	kPa	kPa	°C	°C	µmol m⁻² s⁻¹					µmol m⁻² s⁻¹			°C	°C	°C	°C	°C	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	s		secs		s	s		µmol/mol	mmol/mol	µmol/mol	mmol/mol	µmol/mol	mmol/mol	%	%	µmol mol⁻¹	µmol mol⁻¹ min⁻¹	µmol mol⁻¹		mmol mol⁻¹	mmol mol⁻¹ min⁻¹	mmol mol⁻¹					V	V													V	V	mV	mV	°C	°C	%	°C	mmol mol⁻¹	%	%		V	V	V	V	V	V	V	mg	mg	mg	hrs	V	V	V	V	V	V	V	V	V	V	V	V							V	%	%	µmol/mol	mmol/mol	mmol/mol				mmol/mol				µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	min	min	V	V	V	V	V	V	°C	V		µmol s⁻¹	µmol s⁻¹	°C	°C	°C	°C	°C	%	%	%	°C	µmol mol⁻¹	mmol mol⁻¹	%	%	
+1	1713985087.6	0	20240424 11:58:07	11:58:07	5	9_nosmoke	1713985084.85	-2.909739796005736e-07	-0.0002909739796005736	-0.08676770681234823	420.0236000967012	-8486.662935208165	-864.770806438837	42.79940774742912	-1.537611666657714e-05	3.0	-1.5376160449112475e-05	-9.610096347097778e-06	289.5797904	28.1447143013059	27.12067	3.604604687267566	49.76251562820905	1.7267683802905487	3.4700182627256275	1.8778363069770174	0.012831952500385296	-104.62863576000032	-7.511450395691476	177.45253619680855	-0.026939583655332687	-0.0003865784238269565	-0.08676770681234823	427.24061464749235	427.32790303030293	0.00021155829412527915	67.23512266218252	-0.0002909739796005736	16.946803726871458	16.94648727272727	5.6912769045539554e-06	78.5145228029738	0	0.0	1	0	53909.0	1800.045	1513.22568	0.8406599168354124	0.160873639492346	6.0	0.5	1: Needles	2.0	True	1713985084.85	420.02359999999993	419.9965	16.946109999999997	16.946489999999997	422.54659999999996	16.96713	600.0433	101.79740000000001	0.10022608000000002	26.47376	27.12067	999.9	0.0	0.0	9986.56	0.0	7.231706999999998	0.06632691	427.30390000000006	427.2366	-0.00037879945	419.9965	16.946489999999997	1.7250690000000002	1.7251100000000001	15.12387	15.12424	1800.045	0.9780031999999999	0.021996659999999994	0.0	2.21995	0.0	228.82660000000004	17090.12	40.7059	41.237300000000005	40.8936	40.6059	39.9184	1760.449	39.596000000000004	0.0	1713985175.3	0.0	1713985102.6	11:58:22	1713985102.6	1713984211	4	-0.039	0.019	-2.523	-0.023	420.0	16.0	0.45	0.13	0.07804160731707317	0.09918629059233462	0.026276068274088887	1	0.00042738560243902446	-0.007420713967944247	0.0010267559552490763	1	2	2	2/2	3.22988	2.70427	0.106907	0.106767	0.0912096	0.0916922	29228.7	28559.7	31336	30303.9	38149	36405.1	43921.2	42329.3	2.1692	1.9525	0.128217	0	25.0154	999.9	62.9	26.1	20.9703	62.0361	20.2644	1	-0.151077	-0.347666	20.148	5.22553	11.9954	4.96735	3.297	9999.0	9999.0	9999.0	13.5	4.97154	1.86813	1.85944	1.86551	1.8634	1.86478	1.86021	1.86432	0.0	0.0	0.0	0.0	10111111	oioooooo	on	on	on	on	0.0	100.0	100.0	-2.523	-0.021	-0.6268575422706542	-0.004200780211792431	-6.086107273994438e-07	3.538391214060535e-10	-0.049979385085144684	0.006682484536868237	-0.0007200357986506558	2.5150420026140494e-05	15.0	1944.0	3.0	20.0	14.6	14.6	1.12305	2.42432	1.44897	2.30713	1.55151	2.35962	33.4456	24.0963	18	612.203	474.662	25.0002	25.1536	30.0001	25.1532	25.0915	22.4876	28.4546	86.5474	25	420	16.9679	99.4497	101.133	
+[Header]
+File opened	2024-04-24 15:29:37
+Console s/n	68C-022579
+Console ver	Bluestem v.2.1.09
+Scripts ver	2022.06  2.1.09, Dec 2022
+Head s/n	68H-422569
+Head ver	1.4.22
+Head cal	{"oxygen": "21", "co2azero": "0.953182", "co2aspan1": "1.0007", "co2aspan2": "-0.0241478", "co2aspan2a": "0.320658", "co2aspan2b": "0.318399", "co2aspanconc1": "2491", "co2aspanconc2": "303.6", "co2bzero": "0.942748", "co2bspan1": "1.00024", "co2bspan2": "-0.0240419", "co2bspan2a": "0.321302", "co2bspan2b": "0.318896", "co2bspanconc1": "2491", "co2bspanconc2": "303.6", "h2oazero": "1.04539", "h2oaspan1": "1.00536", "h2oaspan2": "0", "h2oaspan2a": "0.0681292", "h2oaspan2b": "0.0684947", "h2oaspanconc1": "12.16", "h2oaspanconc2": "0", "h2obzero": "1.05523", "h2obspan1": "1.00305", "h2obspan2": "0", "h2obspan2a": "0.0685762", "h2obspan2b": "0.0687854", "h2obspanconc1": "12.16", "h2obspanconc2": "0", "tazero": "0.154137", "tbzero": "0.259335", "flowmeterzero": "2.48881", "flowazero": "0.29412", "flowbzero": "0.30539", "chamberpressurezero": "2.55489", "ssa_ref": "37836.8", "ssb_ref": "35909.7"}
+CO2 rangematch	Tue Apr 23 10:36
+H2O rangematch	Tue Apr 23 10:46
+Chamber type	6800-01A
+Chamber s/n	MPF-842225
+Chamber rev	0
+Chamber cal	0
+Fluorometer	MPF-842225
+Flr. Version	1.4.7
+15:29:37	Stability Definition:	ΔCO2 (Meas2): Slp<0.1 Per=20	ΔH2O (Meas2): Slp<0.1 Per=20
+15:29:56	testing sot measurements
+15:30:03	testing spot measurements
+SysConst:AvgTime	4
+SysConst:Oxygen	21.0
+ChambConst:Chamber	6800-01A
+ChambConst:Aperture	6 cm²
+ChambConst:blc_a	0.578
+ChambConst:blc_b	0.5229739
+ChambConst:blc_c	0.003740252
+ChambConst:blc_d	-0.06197961
+ChambConst:blc_e	-0.005608586
+ChambConst:blc_minS	1
+ChambConst:blc_maxS	6
+ChambConst:blc_Po	96.9
+LTConst:deltaTw	0
+LTConst:fT1	1
+LTConst:fT2	0
+LTConst:fTeb	0
+LQConst:Leaf	standard
+LQConst:Ambient	Fluorescent
+LQConst:abs_ambient	0.76
+LQConst:abs_redLED	0.84
+LQConst:abs_greenLED	0.7
+LQConst:abs_blueLED	0.87
+LQConst:abs_whiteLED	0.75
+LQConst:abs_redFlr	0.84
+LQConst:abs_blueFlr	0.87
+LQConst:k_ambient	0.17250000000000001
+LQConst:k_redLED	0.1512
+LQConst:k_greenLED	0.161
+LQConst:k_blueLED	0.2262
+LQConst:k_whiteLED	0.1575
+LQConst:k_redFlr	0.1596
+LQConst:k_blueFlr	0.2175
+QConst:fQ_Amb_in	0.0
+QConst:fQ_Amb_out	0.0
+QConst:fQ_HeadLS	0.0
+QConst:fQ_ConsoleLS	0.0
+QConst:fQ_Flr	1.0
+LeakConst:fan_a	-6276.0
+LeakConst:fan_b	6.6
+LeakConst:fan_c	1.709e-05
+LeakConst:fan_d	3.11
+LeakConst:Fs_meas	3.47651 199.924 357.624 572.179 851.2 1047.14 1245.91 1393.14
+LeakConst:Fs_true	-0.828902 224.633 389.027 582.932 808.971 1001.28 1201.77 1400.46
+LeakConst:leak_wt	0
+[Data]
+SysObs	SysObs	SysObs	SysObs	SysObs	SysObs	UserDefCon	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	GasEx	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Dynamic	Leak	Leak	Leak	Leak	Leak	LeafQ	LeafQ	LeafQ	LeafQ	Const	Const	Const	Const	Const	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	Meas2	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	FlrLS	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	MchEvent	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Stability	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Raw	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Status2	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	Auxiliary	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	MchStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	ConStatus	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	Status	
+obs	time	elapsed	date	hhmmss	averaging	plant.id	TIME	E	Emm	A	Ca	Ci	Pci	Pca	gsw	gbw	gtw	gtc	Rabs	TleafEB	TleafCnd	SVPleaf	RHcham	VPcham	SVPcham	VPDleaf	LatHFlux	SenHFlux	NetTherm	EBSum	Asty	Esty	Adyn	Crd	Csd	dCsd/dt	αVc	Edyn	Hr	Hs	dHs/dt	αVh	Leak	LeakPct	CorrFact	CorrFactPct	Fan	Qin	Qabs	alpha	convert	S	K	Geometry	Custom	UseDynamic	TIME	CO2_s	CO2_r	H2O_s	H2O_r	CO2_a	H2O_a	Flow	Pa	ΔPcham	Tair	Tleaf	Tleaf2	Offset	Offset2	Fan_speed	Qamb_in	Qamb_out	ΔCO2	CO2_s_d	CO2_r_d	ΔH2O	CO2_b	H2O_b	e_s	e_r	Td_s	Td_r	Q	f_red	f_blue	f_farred	F	Q_modavg	F_dc	Pc	Tled	TDigital	TPreamp	TPwrSpy	TDrive	Q_red	Q_blue	Q_farred	TSPF	state	time	hhmmss	co2_t	h2o_t	count	co2_adj	h2o_adj	co2_match	h2o_match	co2_at	h2o_at	co2_cv	h2o_cv	ΔCO2:MN	ΔCO2:SLP	ΔCO2:SD	ΔCO2:OK	ΔH2O:MN	ΔH2O:SLP	ΔH2O:SD	ΔH2O:OK	Stable	Total	State	Vflow	VPchamber	abs_c_a	abs_c_b	abs_h_a	abs_h_b	Wc_s	Wc_r	Wco_s	Wco_r	Ww_s	Ww_r	Wwo_s	Wwo_r	Flow_s_v	Flow_r_v	Tleaf_mv	Tleaf2_mv	Tleaf_j	Tleaf2_j	Console_RH	Console_T	Console_H2O	Fan_%	Flow_%	Pump	Tchp_pwm	Txchg_pwm	diag_20v	diag_5_4v	diag_12v	diag_5va	diag_3_3vf	AccCO2_soda	AccH2O_des	AccH2O_hum	CO2_hrs	ADC_CH1	ADC_CH2	ADC_CH3	ADC_CH4	ADC_CH5	ADC_CH6	ADC_CH7	ADC_CH8	DAC_1	DAC_2	DAC_3	DAC_4	GPIO	GPIO_dir	excit_5v	power_12v	power_5v	ch1_pullup	AuxPower	MatchValveR	MatchValveS	MatchCO2	MatchH2O	cf_co2_a	cf_co2_b	cf_co2_c	cf_co2_d	cf_h2o_a	cf_h2o_b	cf_h2o_c	cf_h2o_d	co2_fit_low	co2_fit_high	h2o_fit_low	h2o_fit_high	co2_elapsed	h2o_elapsed	CO2_f	CO2_f_s	Pump_f	Pump_f_s	Pump_p	Pump_p_s	Tboard	V_system	DIAG	Flow_s	Flow_r	Txchg	Tirga	Tchopper	Ts	Tr	CO2_%	Desiccant_%	Humidifier_%	Txchg_sp	CO2_r_sp	H2O_r_sp	SS_s	SS_r	
+	s	s			s		s	mol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	Pa	Pa	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	mol m⁻² s⁻¹	W m⁻²	°C	°C	kPa	%	kPa	kPa	kPa	W m⁻²	W m⁻²	W m⁻²	W m⁻²	µmol m⁻² s⁻¹	mmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹ s⁻¹	cm³	mmol m⁻² s⁻¹	mmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹ s⁻¹	cm³	µmol s⁻¹	%		%	µmol s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹		J/µmol	cm²			mol m⁻² s⁻¹		s	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol s⁻¹	kPa	kPa	°C	°C	°C	°C	°C	rpm	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol mol⁻¹	µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	kPa	kPa	°C	°C	µmol m⁻² s⁻¹					µmol m⁻² s⁻¹			°C	°C	°C	°C	°C	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	µmol m⁻² s⁻¹	s		secs		s	s		µmol/mol	mmol/mol	µmol/mol	mmol/mol	µmol/mol	mmol/mol	%	%	µmol mol⁻¹	µmol mol⁻¹ min⁻¹	µmol mol⁻¹		mmol mol⁻¹	mmol mol⁻¹ min⁻¹	mmol mol⁻¹					V	V													V	V	mV	mV	°C	°C	%	°C	mmol mol⁻¹	%	%		V	V	V	V	V	V	V	mg	mg	mg	hrs	V	V	V	V	V	V	V	V	V	V	V	V							V	%	%	µmol/mol	mmol/mol	mmol/mol				mmol/mol				µmol mol⁻¹	µmol mol⁻¹	mmol mol⁻¹	mmol mol⁻¹	min	min	V	V	V	V	V	V	°C	V		µmol s⁻¹	µmol s⁻¹	°C	°C	°C	°C	°C	%	%	%	°C	µmol mol⁻¹	mmol mol⁻¹	%	%	
+1	1713998328.1	0	20240424 15:38:48	15:38:48	5	test1_spot	1713998325.1	0.00029614755417295944	0.29614755417295946	4.582801591881997	2594.231449441775	2062.8399770512146	209.85123265304563	263.909306349039	0.015915029302111746	3.0	0.015868272890314273	0.009921859913267954	289.56661600083606	28.054980588212928	27.008663636363636	3.580981305491204	49.95517011649363	1.7319983883631491	3.4671053753279035	1.8489829171280547	-13.060107139027512	-88.8165892363634	-6.37225038661885	181.31766923882626	4.929584736247624	0.3157913879470673	4.582801591881997	2644.246403960275	2639.5587272727257	0.005951299505400606	67.20111171792026	0.29614755417295946	16.71228702307771	17.012906666666655	-0.0017834103779889134	78.5422333932066	7.0	1.0	1	0	53904.0	1800.0009090909093	1513.1854635896939	0.8406581663083317	0.16087026097508011	6.0	0.5	1: Needles	2.0	True	1713998325.1	2594.231454545454	2599.98	17.02556363636364	16.715163636363638	2603.1654545454544	17.037436363636363	600.0287272727272	101.62927272727273	0.10001068181818183	26.459518181818183	27.008663636363636	999.9	0.0	0.0	9994.888181818182	0.0	9.327219999999999	-5.405340909090909	2639.5154545454543	2644.179090909091	0.3103996363636364	2599.98	16.715163636363638	1.7302954545454547	1.6987518181818182	15.170936363636365	14.885027272727273	1800.0009090909093	0.9780000909090909	0.02199992727272727	0.0	130.62954545454548	5.000979999999999	2588.7736363636363	17042.199999999997	37.63063636363636	38.23854545454546	37.937000000000005	37.61354545454546	38.73854545454546	1755.51	39.49	0.0	1713998416.8	0.0	1713998347.1	15:39:07	1713998347.1	1713998087	6	-0.343	0.009	-8.934	-0.013	2599.0	17.0	0.57	0.17	-6.075731463414635	7.989650383275247	0.9076109393899444	0	0.3212793902439024	-0.04093858536585343	0.014223586064373376	1	1	2	1/2	3.22943	2.70433	0.340645	0.341105	0.0910538	0.0903431	21524.2	21032.3	31247.2	30246.2	38042.5	36397.9	43784.5	42250.3	2.11503	1.90725	0.130527	0	24.8702	999.9	53.8	31	23.8844	61.9755	21.23	1	-0.0788034	-0.153758	20.1435	5.22837	11.9974	4.96725	3.297	9999.0	9999.0	9999.0	17.1	4.97139	1.868	1.85944	1.86547	1.8634	1.86478	1.8602	1.86432	0.0	0.0	0.0	0.0	10111111	oioooooo	on	on	on	on	0.0	100.0	100.0	-8.934	-0.0119	-8.5905	0.0	0.0	0.0	-0.04109651366498187	0.006682484536868237	-0.0007200357986506558	2.5150420026140494e-05	15.0	1944.0	3.0	20.0	3.9	4.0	4.83765	2.34863	1.44775	2.30225	1.55151	2.2644	36.0347	24.1488	18	584.922	455.355	25.0004	26.0597	29.9998	26.1633	26.131	96.8437	40.1641	68.1882	25	2600	16.7072	99.1518	100.943	
