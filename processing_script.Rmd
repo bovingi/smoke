@@ -5,6 +5,12 @@ date: "2024-04-29"
 output: html_document
 ---
 
+TO DO: 
+
+- Entered wrong data for 4/29 post (same as pre, check that)
+- temp and rh data from doing gmin, imageJ on the nosmoke leaves (do they exist?)
+- figure out which trees we should have for ACi curves from 5/1 - 5/3; seems like we're missing some smoke ones? Should be 6 and 6? 
+
 ```{r}
 library(tidyverse)
 install.packages("readxl")
@@ -12,6 +18,20 @@ library(readxl)
 
 install.packages(c("units", "stringi", "jsonify", "xml2", "tidyxl", "tibble", "vctrs", "devtools"))
 devtools::install_local("gasanalyzer-master.zip")
+
+#custon ggplot: 
+ggplot <- function(...) { ggplot2::ggplot(...) + 
+    theme(panel.background = element_rect(fill='white', colour='black'), # Make background white and border black
+          panel.grid.major = element_blank(),  # Hide major gridlines
+          panel.grid.minor = element_blank(),# Hide minor gridlines
+          strip.background = element_rect(fill = "white"))  # Make background white
+}
+
+theme_minimal <- theme_minimal() + 
+  theme(panel.background = element_rect(fill='white', colour='black'), # Make background white and border black
+        panel.grid.major = element_blank(),  # Hide major gridlines
+        panel.grid.minor = element_blank(),# Hide minor gridlines
+        strip.background = element_rect(fill = "white")) 
 
 ```
 
@@ -25,6 +45,7 @@ Using code from this:
 # data <- read_li6800_excel(here::here("raw-data","2024-04-25-1052_logdata_smoke_test_r1"), decimal = ".")
 ```
 
+#-----
 #LICOR DATA: 
 
 - First make sure all cells in the excel sheet are values, not equations (select all, copy, then paste special as values)
@@ -65,9 +86,6 @@ for (file in files) {
   # Remove instances of _NA from column names
   colnames(data) <- gsub("_NA", "", colnames(data))
   
-  # Select only the first 16 columns
-  data <- data %>% select(1:17)
-  
   # Add the processed dataframe to the list
   df_list[[file]] <- data
 }
@@ -95,53 +113,419 @@ final_data <- bind_rows(df_list) %>%
   group_by(date, type, plant_id, spot_aci) %>% 
   mutate(A = mean(a_mmol_m_2_s_1, na.rm = T), 
          gsw = mean(gsw_mol_m_2_s_1, na.rm = T)) %>% 
-  ungroup()
+  ungroup() %>%
+  mutate(plant_id = case_when(
+    # Replace 'sm_' with 'smoke_' and ensure the number is always after 'smoke_'
+    str_detect(plant_id, "^sm_") ~ str_replace(plant_id, "sm_", "smoke_"),
+    str_detect(plant_id, "^\\d+_smoke") ~ str_replace(plant_id, "(\\d+)_smoke", "smoke_\\1"),
+    str_detect(plant_id, "_smoke\\d+") ~ str_replace(plant_id, "_smoke(\\d+)", "smoke_\\1"),
+    
+    # Replace 'no_' with 'nosmoke_' and ensure the number is always after 'nosmoke_'
+    str_detect(plant_id, "^no_") ~ str_replace(plant_id, "no_", "nosmoke_"),
+    str_detect(plant_id, "^\\d+_nosmoke") ~ str_replace(plant_id, "(\\d+)_nosmoke", "nosmoke_\\1"),
+    str_detect(plant_id, "_nosmoke\\d+") ~ str_replace(plant_id, "_nosmoke(\\d+)", "nosmoke_\\1"),
+    
+    # Case where the number is already after 'smoke_' or 'nosmoke_' (no changes)
+    str_detect(plant_id, "smoke_\\d+") ~ plant_id,
+    str_detect(plant_id, "nosmoke_\\d+") ~ plant_id,
+    
+    # Leave everything else untouched
+    TRUE ~ plant_id
+  ))%>%
+  mutate(smoke_status = case_when(
+    str_detect(plant_id, "^smoke_") ~ "smoke",
+    str_detect(plant_id, "^nosmoke_") ~ "nosmoke",
+    TRUE ~ NA_character_  # Set as NA for any other cases
+  ))
+
+unique(final_data$plant_id)
 ```
 
 ```{r}
+day1 <- final_data %>% 
+  filter(date %in% c("2024-04-25"))
+
+unique(day1$plant_id)
+```
+#####Assimilation pre and post: 
+
+```{r}
+level_order <- c('pre', 'post')
+
 final_data %>% 
-  select(date, A, spot_aci, type, plant_id) %>% 
+  select(date, A, spot_aci, type, plant_id, smoke_status) %>% 
   distinct() %>% 
   filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
                      "2024-04-25")) %>% 
+  filter(smoke_status == "smoke") %>% 
   filter(spot_aci == "spot measurements") %>% 
-  ggplot(aes(y = A, x = type, color = type)) +
-  geom_jitter() +
-  geom_boxplot(alpha= 0, color = "black") +
-  facet_wrap(~date)
+  ggplot(aes(y = A, x = factor(type, level = level_order), color = type)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = 1,                          # Size of the dot
+    position = position_dodge(width = 1)
+  )  +
+  theme(legend.position = "none") +
+  scale_color_manual(values = c( "lightpink", "darkgreen")) +
+  facet_wrap(~date ,nrow = 1) +
+  labs(y = "Assimilation µmol m⁻² s⁻¹", 
+       x = "Time")
+  
 ```
+#####Assimilation control vs. smoke: 
 
+```{r, fig.height=3, fig.width=8}
+level_order <- c('smoke', 'nosmoke')
 
-```{r}
-final_data %>% 
-  select(date, gsw, spot_aci, type, plant_id) %>% 
-  distinct() %>% 
-  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
-                     "2024-04-25")) %>% 
-  filter(spot_aci == "spot measurements") %>% 
-  ggplot(aes(y = gsw, x = type, color = type)) +
-  geom_jitter() +
-  geom_boxplot(alpha= 0, color = "black") +
-  facet_wrap(~date)
-```
+df <- final_data %>% 
+  select(date, gsw, A, spot_aci, type, plant_id, smoke_status) %>% 
+   distinct() %>% 
+  filter(!(date %in% c("2024-05-01", "2024-05-02", "2024-05-03", "2022-03-03")))
+  #                    "2024-04-25", "2024-05-13", "2024-05-08", "2024-05-07")) #%>% 
+  #filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+  #                    "2024-04-25", "2024-05-13", "2024-05-08", "2024-05-07")) 
 
-
-```{r}
-final_data %>% 
-  select(date, gsw, spot_aci, type, plant_id) %>% 
-  distinct() %>% 
-  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
-                     "2024-04-25",
-                     "2024-05-01",
-                     "2024-05-02",
-                     "2024-05-03",
-                     "2024-05-08",
-                     "2024-05-10")) %>% 
+df %>% 
+  #filter(smoke_status == "smoke") %>% 
+  filter(!(type %in% c("post"))) %>% 
   #filter(spot_aci == "spot measurements") %>% 
-  ggplot(aes(y = gsw, x = type, color = type)) +
-  geom_jitter() +
-  geom_boxplot(alpha= 0, color = "black") +
-  facet_wrap(~date)
+  ggplot(aes(y = gsw, color = factor(smoke_status, level = level_order), x = date)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = .75,                          # Size of the dot
+    position = position_dodge(width = .5)
+  ) +
+  #facet_wrap(~date ,nrow = 1) +
+  labs(y = "Assimilation (µmol m⁻² s⁻¹)", 
+       x = "Time", 
+       color = "Treatment")
+  
 ```
 
+#####GSW pre and post: 
+
+```{r}
+level_order <- c('pre', 'post')
+
+final_data %>% 
+  select(date, gsw, spot_aci, type, plant_id, smoke_status) %>% 
+  distinct() %>% 
+  filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+                     "2024-04-25")) %>% 
+  filter(smoke_status == "smoke") %>% 
+  filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = gsw, x = factor(type, level = level_order), color = type)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = 1,                          # Size of the dot
+    position = position_dodge(width = 1)
+  )  +
+  theme(legend.position = "none") +
+  scale_color_manual(values = c( "lightpink", "darkgreen")) +
+  facet_wrap(~date ,nrow = 1) +
+  labs(y = "Stomatal Conductance (mol m⁻² s⁻¹)", 
+       x = "Time") 
+  
+```
+
+#####GSW control vs. smoke: 
+
+```{r, fig.height=3, fig.width=8}
+level_order <- c('nosmoke', 'smoke')
+
+df <- final_data %>% 
+  select(date, gsw, A, spot_aci, type, plant_id, smoke_status) %>% 
+   distinct() %>% 
+  filter(!(date %in% c("2024-05-01", "2024-05-02", "2024-05-03", "2022-03-03")))
+  #                    "2024-04-25", "2024-05-13", "2024-05-08", "2024-05-07")) #%>% 
+  #filter(date %in% c("2024-04-29", "2024-04-30", "2024-04-26", 
+  #                    "2024-04-25", "2024-05-13", "2024-05-08", "2024-05-07")) 
+
+df %>% 
+  #filter(smoke_status == "smoke") %>% 
+  filter(!(type %in% c("post"))) %>% 
+  #filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = gsw, x = factor(smoke_status, level = level_order), color = smoke_status)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = 1,                          # Size of the dot
+    position = position_dodge(width = 1)
+  ) +
+  facet_wrap(~date ,nrow = 1) +
+  labs(y = "Stomatal Conductance (mol m⁻² s⁻¹)", 
+       x = "Time")
+
+head(df)
+unique(final_data$date)
+
+df %>% 
+  #filter(smoke_status == "smoke") %>% 
+  filter(!(type %in% c("post"))) %>% 
+  #filter(spot_aci == "spot measurements") %>% 
+  ggplot(aes(y = gsw, color = factor(smoke_status, level = level_order), x = date)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = .75,                          # Size of the dot
+    position = position_dodge(width = .5)
+  ) +
+  #facet_wrap(~date ,nrow = 1) +
+  labs(y = "Stomatal Conductance (mol m⁻² s⁻¹)", 
+       x = "Time", 
+       color = "Treatment")
+
+```
+
+#------
+
+#####VCmax
+Aci curves (the ones that are good):
+
+```{r}
+aci_post <- final_data %>% 
+  filter(#spot_aci %in% c("ACi Curves") &
+           date %in% c("2024-05-03", 
+                       "2024-05-02", 
+                       "2024-05-04")) %>% 
+  drop_na(plant_id) %>% 
+  filter(ci_mmol_mol_1 > 200) %>% 
+  mutate(day = 1, 
+         licor = "anderegg", 
+         id = plant_id, 
+         Photo = a_mmol_m_2_s_1, 
+         Ci = ci_mmol_mol_1,
+         Tleaf = tleaf_c, 
+         PARi = q_mmol_m_2_s_1) %>% 
+  select(day, licor, id, Photo, Ci, Tleaf, PARi, elapsed_s) %>% 
+  filter(!(id %in% c("smoke_7", "smoke_10"))) %>% 
+  filter(!(id %in% c("smoke_12") & elapsed_s <= 6500)) %>% 
+  filter(!(id %in% c("nosmoke_4") & elapsed_s <= 10200))%>% 
+  filter(Ci < 2500) 
+
+
+##I think smoke_12 is two different trees that are labeled wrong... 
+aci_post %>% 
+ # filter(id == "nosmoke_4") %>% 
+  #filter(Ci < 2000) %>% 
+  ggplot(aes(y = Photo, x = Ci, color = elapsed_s)) +
+  facet_wrap(~id, scales= "free") + 
+  geom_point() 
+```
+
+
+
+```{r}
+library(plantecophys)
+
+## 2)  Load a-ci curves
+a.ci <- aci_post
+str(a.ci)
+head(a.ci)
+
+## 3) Use "Curve" as a unique identifier for each sample and set it as a separate vector
+# Check out each curve for fit
+# a.ci$Curve <- paste(a.ci$time, a.ci$population, a.ci$clone, a.ci$bed, a.ci$plant, sep="-")
+# a.ci$sample <- paste(a.ci$bed, a.ci$plant)
+trees <- unique(a.ci$id)
+trees <- sort(trees)
+trees
+
+for (i in 1:length(trees)){
+  test <- a.ci[a.ci$id == trees[i],]
+  t <- fitaci(test, fitmethod="bilinear", Tcorrect=FALSE)
+  plot(t, main=trees[i])
+}
+
+## 4) Store A/Ci curve as dataframe
+vcmax.default <- matrix(data=NA, nrow=length(trees), ncol=6)
+
+for (i in 1:length(trees)) {
+  test <- a.ci[a.ci$id == trees[i],]
+  t <- fitaci(test, fitmethod="bilinear", Tcorrect=FALSE)
+  vcmax.default[i,1]<-t$pars[1,1]
+  vcmax.default[i,2]<-t$pars[1,2]
+  vcmax.default[i,3]<-t$pars[2,1]
+  vcmax.default[i,4]<-t$pars[2,2]
+  vcmax.default[i,5]<-t$pars[3,1]
+  vcmax.default[i,6]<-t$pars[3,2]
+}
+
+vcmax.default <- as.data.frame(vcmax.default)
+vcmax.default <- cbind(trees, vcmax.default)
+colnames(vcmax.default) <- c("id", "Vcmax", "vcmax.error", "Jmax", "Jmax.error",
+                     "Rd", "Rd.error")
+data <- vcmax.default %>% 
+  clean_names() %>% 
+  separate(col = id, into = c("treatment", "rep"), sep = "_")
+
+## 5) Summarize and graph Vcmax
+vcmax.sum <- data %>% 
+  group_by(treatment) %>%
+  dplyr::summarise(mean.Vcmax = mean(vcmax, na.rm = TRUE),
+                   median.Vcmax = median(vcmax, na.rm=TRUE),
+                   sd.Vcmax = sd(vcmax, na.rm = TRUE),
+                   n.Vcmax = length(vcmax[!is.na(vcmax)])) %>%
+  mutate(se.Vcmax = sd.Vcmax / sqrt(n.Vcmax),
+         lower.ci.Vcmax = mean.Vcmax - qt(1 - (0.05 / 2), n.Vcmax - 1) * se.Vcmax,
+         upper.ci.Vcmax = mean.Vcmax + qt(1 - (0.05 / 2), n.Vcmax - 1) * se.Vcmax)
+
+data %>% 
+  ggplot(aes(y = vcmax, x = treatment, color = treatment))  +
+  #geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = 1,                          # Size of the dot
+    position = position_dodge(width = 1)
+  )  +
+  theme(legend.position = "none") +
+  scale_color_manual(values = c( "lightpink", "darkgreen")) +
+  #facet_wrap(~date ,nrow = 1) +
+  labs(y = "VCmax", 
+       x = "Time") 
+```
+
+
+```{r}
+fitaci(aci_post, 
+       varnames = list(aleaf = 3, 
+                       Tleaf = )
+       )
+```
+
+#------
+
+####GMIN: 
+
+```{r}
+#weights
+gmin_weights <- read_csv(here::here("raw-data","SMOKE DATA", "GMIN DATA", "smoke_gmin.csv")) %>% 
+  mutate(leaf = as.factor(leaf))
+
+#leaf area
+gmin_leafareas <- read_csv(here::here("raw-data","SMOKE DATA", "GMIN DATA", "leaf_areas.csv")) %>% 
+  mutate(tree = as.factor(leaf)) %>% 
+  select(-leaf)
+
+#need hobo data
+
+#combine
+gmin_df <- merge(gmin_weights, gmin_leafareas, by = c("tree", "treatment"), all = T) %>% 
+  filter(mass_change > 0)
+
+gmin_df %>% 
+  ggplot(aes(y = mass, x = time, color = leaf)) + 
+  geom_point() +
+  facet_wrap(~treatment, scales = "free")
+```
+
+```{r, eval = F}
+gmin <- gmin_df %>% 
+  #select(Species, ID, Leaf_Num, Time, Mass, Temp, RH, Atm_Pressure, Leaf_Area) %>% 
+  #separate(col = "ID", into = c("treatment", "id"), sep = "_") %>% 
+  mutate(Temp = as.numeric(Temp),
+         RH = as.numeric(RH),
+         Atm_Pressure = as.numeric(Atm_Pressure),
+         Mass = as.numeric(Mass),
+         Time = hm(Time),
+         vpsat_kpa = 0.61121*exp((18.678-(Temp/234.5))*(Temp/(257.14+Temp))),
+         mfvpd = (1-(RH/100))*(vpsat_kpa/Atm_Pressure)) %>% 
+  group_by(Species, treatment, id, Leaf_Num) %>% 
+  mutate(mass_change = lag(Mass) - Mass,
+         time_change = as.duration(Time - lag(Time))) %>% 
+  ungroup() %>% 
+  drop_na(mass_change) %>% 
+  mutate(time_change = as.numeric(time_change),
+         gmin = ((mass_change)/18*1000)/(time_change)/mfvpd/(Leaf_Area*2/10000)) %>% 
+  filter(gmin >= 0)
+
+gmin_processed <- read.csv(here("data", "gmin_processed.csv"))
+
+enca_gmin <- gmin_processed %>% 
+  filter(Species == "ENCA") 
+
+TukeyHSD(aov(gmin~treatment, data = enca_gmin))
+
+ggplot(enca_gmin, aes(x = treatment, y = gmin))+
+  geom_boxplot()+
+  theme_minimal()
+
+mala_gmin <- gmin_processed %>% 
+  filter(Species == "MALA")
+
+TukeyHSD(aov(gmin~treatment, data = mala_gmin))
+
+ggplot(mala_gmin, aes(x = treatment, y = gmin)) +
+  geom_boxplot()+
+  theme_minimal()
+```
+
+#-----
+
+#####weights
+
+
+```{r}
+weights_df <- read_csv(here::here("raw-data","SMOKE DATA", "Weights_Environment", "weights.csv")) %>% 
+              clean_names() %>% 
+  mutate(date= as.POSIXct(date, format = "%m/%d/%y"),
+         date_new = lubridate::ymd(date), 
+         tree_id = as.character(tree_id)
+         ) %>% 
+  unite(id, c("chamber_no", "tree_id")) %>% 
+  group_by(date_new, id) %>% 
+  pivot_wider(names_from = pre_post, 
+              values_from = mass_g) %>% 
+  ungroup() %>% 
+  group_by(date_new, id) %>% 
+  fill(pre, post, .direction = "downup") %>% 
+  ungroup() %>% 
+  group_by(id) %>% 
+  fill(14:18, .direction = "downup")
+
+weights_prepost_df <- weights_df %>% 
+  select(date_new, id, pre, post) %>% 
+  mutate(pre = as.numeric(pre), 
+         post = as.numeric(post)) %>% 
+  mutate(weight_change_g = pre-post) %>% 
+  distinct() %>% 
+  filter(weight_change_g > -5) %>% 
+  separate(id, into = c("treatment", "plant_id"), sep = "smoke_") %>% 
+  mutate(treatment = case_when(
+    treatment %in% c("no_") ~ "nosmoke", 
+    TRUE ~ "smoke"
+  ))
+
+#Just entered the wrong data, woops
+weights_prepost_df %>% 
+  ggplot(aes(y = weight_change_g, x = treatment, color = treatment))  +
+  geom_jitter(alpha = .3) +
+  stat_summary(
+    fun = mean,                         # Plot the mean as the dot
+    fun.data = mean_sdl,                 # Plot error bars using standard error
+    geom = "pointrange",                # Point with error bars
+    size = .75,                          # Size of the dot
+    position = position_dodge(width = .5)
+  ) +
+  facet_wrap(~date_new, nrow = 1, scales = "free") +
+  labs(y = "Transpirative Loss (g))", 
+       x = "Time", 
+       color = "Treatment")
+  
+```
 
