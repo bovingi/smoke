@@ -7,8 +7,8 @@ output: html_document
 
 TO DO: 
 
-- Entered wrong data for 4/29 post (same as pre, check that)
-- temp and rh data from doing gmin, imageJ on the nosmoke leaves (do they exist?)
+- temp and rh data from doing gmin, imageJ on the nosmoke leaves (do they exist?); Shane will do this!
+
 - figure out which trees we should have for ACi curves from 5/1 - 5/3; seems like we're missing some smoke ones? Should be 6 and 6? 
 
 ```{r}
@@ -300,9 +300,10 @@ aci_post <- final_data %>%
   filter(#spot_aci %in% c("ACi Curves") &
            date %in% c("2024-05-03", 
                        "2024-05-02", 
-                       "2024-05-04")) %>% 
+                       "2024-05-04",
+                       "2024-05-05")) %>% 
   drop_na(plant_id) %>% 
-  filter(ci_mmol_mol_1 > 200) %>% 
+  filter(ci_mmol_mol_1 > 100) %>% 
   mutate(day = 1, 
          licor = "anderegg", 
          id = plant_id, 
@@ -310,19 +311,33 @@ aci_post <- final_data %>%
          Ci = ci_mmol_mol_1,
          Tleaf = tleaf_c, 
          PARi = q_mmol_m_2_s_1) %>% 
-  select(day, licor, id, Photo, Ci, Tleaf, PARi, elapsed_s) %>% 
-  filter(!(id %in% c("smoke_7", "smoke_10"))) %>% 
-  filter(!(id %in% c("smoke_12") & elapsed_s <= 6500)) %>% 
-  filter(!(id %in% c("nosmoke_4") & elapsed_s <= 10200))%>% 
-  filter(Ci < 2500) 
+ select(day, licor, id, Photo, Ci, Tleaf, PARi, elapsed_s, obs, date) %>% 
+ # filter(!(id %in% c("smoke_7", "smoke_10"))) %>% 
+ # filter(!(id %in% c("smoke_12") & elapsed_s <= 6500)) %>% 
+# filter(!(id %in% c("nosmoke_4") & elapsed_s <= 10200))%>% 
+  filter(Ci < 2500) %>% 
+  mutate(id = case_when(
+     date %in% c("2024-05-02") & obs %in% c(418:430) ~ "smoke_12", 
+      date %in% c("2024-05-02") & obs %in% c(431:443) ~ "nosmoke_12",
+      date %in% c("2024-05-02") & obs %in% c(444:457) ~ "nosmoke_4", 
+      date %in% c("2024-05-02") & obs %in% c(458:470) ~ "smoke_4", 
+      date %in% c("2024-05-02") & obs %in% c(471:483) ~ "smoke_6", 
+      date %in% c("2024-05-03") & obs %in% c(1:14) ~ "nosmoke_1", 
+      date %in% c("2024-05-03") & obs %in% c(15:29) ~ "smoke_10", 
+     date %in% c("2024-05-03") & obs %in% c(30:48) ~ "nosmoke_2", 
+      date %in% c("2024-05-03") & obs %in% c(48:57) ~ "smoke_7", 
+     date %in% c("2024-05-03") & obs %in% c(58:71) ~ "nosmoke_7", 
+     date %in% c("2024-05-03") & obs %in% c(72:85) ~ "smoke_3",
+     TRUE ~ as.character(id)
+  ))
 
 
 ##I think smoke_12 is two different trees that are labeled wrong... 
 aci_post %>% 
  # filter(id == "nosmoke_4") %>% 
   #filter(Ci < 2000) %>% 
-  ggplot(aes(y = Photo, x = Ci, color = elapsed_s)) +
-  facet_wrap(~id, scales= "free") + 
+  ggplot(aes(y = Photo, x = Ci, color = obs)) +
+  facet_wrap(~id*date, scales= "free") + 
   geom_point() 
 ```
 
@@ -477,7 +492,7 @@ ggplot(mala_gmin, aes(x = treatment, y = gmin)) +
 
 #-----
 
-#####weights
+#####Transpirative water loss
 
 
 ```{r}
@@ -523,7 +538,7 @@ weights_prepost_df %>%
     position = position_dodge(width = .5)
   ) +
   facet_wrap(~date_new, nrow = 1, scales = "free") +
-  labs(y = "Transpirative Loss (g))", 
+  labs(y = "Transpirative Loss (g)", 
        x = "Time", 
        color = "Treatment")
   
