@@ -11,11 +11,13 @@ TO DO:
 
 - figure out which trees we should have for ACi curves from 5/1 - 5/3; seems like we're missing some smoke ones? Should be 6 and 6? 
 
+#SETUP
+
 ```{r}
 library(tidyverse)
 install.packages("readxl")
 library(readxl)
-
+library(janitor)
 install.packages(c("units", "stringi", "jsonify", "xml2", "tidyxl", "tibble", "vctrs", "devtools"))
 devtools::install_local("gasanalyzer-master.zip")
 
@@ -542,5 +544,155 @@ weights_prepost_df %>%
        x = "Time", 
        color = "Treatment")
   
+```
+
+#-----
+
+##PAR:
+
+```{r}
+par_df <- read_csv(here::here("raw-data","SMOKE DATA", "Weights_Environment", "weights.csv")) %>% 
+              clean_names() %>% 
+  mutate(date= as.POSIXct(date, format = "%m/%d/%y"),
+         date_new = lubridate::ymd(date), 
+         tree_id = as.character(tree_id)
+         ) %>% 
+  unite(id, c("chamber_no", "tree_id")) %>% 
+  #select(date, time, id, temp, humidity, co2, par) %>% 
+  mutate(day = day(date), 
+         hour = hour(time))  %>% 
+  separate(id, into = c("treatment", "tree_id"), sep = "_", remove = FALSE)
+  
+
+par_df %>% 
+  filter(#pre_post == "post",
+    day %in% c(25, 26, 29, 30), 
+         hour %in% c(8:18)) %>% 
+  group_by(day, treatment) %>% 
+ # mutate(vpd_kpa = mean(vpd_kpa, na.rm = T)) %>% 
+  ggplot(aes(x = treatment, 
+             color = treatment,
+             y = par, 
+             #color = size
+             )) +
+  geom_boxplot() +
+  ylab("PAR")
+```
+
+
+#-----
+
+##HOBOS: 
+
+```{r}
+
+# Set the file path
+file_path <- here::here("raw-data", "SMOKE DATA", "HOBOS")
+
+# List all CSV files in the directory
+csv_files <- list.files(file_path, pattern = "\\.csv$", full.names = TRUE)
+
+# Function to read, process, and return a modified dataframe with file name
+process_csv <- function(file_path) {
+  file_name <- sub(".csv$", "", basename(file_path))  # Extract file name without extension
+  df <- read.csv(file_path, header = T, skip = 1) %>%
+    dplyr::rename(date_time = Date.Time..GMT.07.00) %>% 
+    rename(temp = 3) %>% 
+    rename(relative_humidity = 4) %>%
+    mutate(file_name = file_name)
+  
+  # df <- df %>%
+  #   select(file_name, date_time, temp, relative_humidity)
+  
+  df
+}
+
+# Apply the function to each CSV file
+data_list <- lapply(csv_files, process_csv) 
+#05/15/24 12:45:00 PM
+library(lubridate)
+install.packages("bigleaf")
+install.packages("plantecophys")
+library(plantecophys)
+library(bigleaf)
+library(bigleaf)
+# Combine processed dataframes into a single dataframe
+combined_df_hobos <- dplyr::bind_rows(data_list) %>% 
+  mutate(#date_time = mdy_hms(date_time), #parsing issue is the problem!
+         date_time = mdy_hms(date_time), 
+         time = hms(date_time),
+         minute = minute(date_time), 
+         second = second(date_time), 
+         hour = hour(date_time), 
+         month = month(date_time), 
+         week = week(date_time), 
+         day = day(date_time)) %>% 
+  separate(file_name, into = c("treatment", "tree_id", "post"), sep = "_", remove = FALSE) %>% 
+  select(treatment, tree_id, date_time, month,hour, minute, time,second, week, day, temp, relative_humidity) %>% 
+  drop_na(temp)   %>% 
+  mutate(elev = 20) %>% 
+  mutate(temp = (temp - 32)*5/9) %>% 
+  mutate(pa = bigleaf::pressure.from.elevation(
+  elev,
+  temp, #convert temp to C
+  VPD = NULL,
+  constants = bigleaf.constants())) %>% 
+  mutate(vpd_kpa = RHtoVPD(relative_humidity, temp, Pa = pa), 
+         tree_id = as.factor(tree_id),
+         year = year(date_time)
+         #size = as.factor(size)
+         ) 
+
+combined_df_hobos %>% 
+  filter(day %in% c(25, 26, 29, 30), 
+         hour %in% c(8:18)) %>% 
+  group_by(day, treatment) %>% 
+ # mutate(vpd_kpa = mean(vpd_kpa, na.rm = T)) %>% 
+  ggplot(aes(x = treatment, 
+             color = treatment,
+             y = vpd_kpa, 
+             #color = size
+             )) +
+  geom_boxplot()
+
+combined_df_hobos %>% 
+  filter(day %in% c(25, 26, 29, 30), 
+         hour %in% c(8:18)) %>% 
+  group_by(day, treatment) %>% 
+ # mutate(vpd_kpa = mean(vpd_kpa, na.rm = T)) %>% 
+  ggplot(aes(x = treatment, 
+             color = treatment,
+             y = temp, 
+             #color = size
+             )) +
+  geom_boxplot()
+
+combined_df_hobos %>% 
+  filter(day %in% c(25, 26, 29, 30), 
+         hour %in% c(8:18)) %>% 
+  group_by(day, treatment) %>% 
+ # mutate(vpd_kpa = mean(vpd_kpa, na.rm = T)) %>% 
+  ggplot(aes(x = treatment, 
+             color = treatment,
+             y = relative_humidity, 
+             #color = size
+             )) +
+  geom_boxplot()
+
+combined_df_hobos %>% 
+  group_by(treatment, day, hour) %>% 
+  mutate(temp = mean(temp, na.rm = T)) %>% 
+  filter(day %in% c(25, 26, 29, 30), 
+         #hour %in% c(8:18)
+         ) %>% 
+  group_by(day, treatment) %>% 
+ # mutate(vpd_kpa = mean(vpd_kpa, na.rm = T)) %>% 
+  ggplot(aes(x = hour, 
+             color = treatment,
+             y = temp, 
+             #color = size
+             )) +
+  geom_point() +
+  facet_wrap(~day)
 ```
 
